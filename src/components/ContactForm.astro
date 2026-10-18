@@ -1,0 +1,290 @@
+---
+import {
+  INQUIRY_TYPES,
+  SCHOOL_ROLES,
+  STUDENT_BANDS,
+  TIMELINES,
+} from '../lib/contact';
+import { site } from '../data/site';
+---
+
+<form
+  class="contact-form"
+  data-contact-form
+  data-form-endpoint={site.formEndpoint}
+  novalidate
+  aria-label="Eduvia inquiry"
+>
+  <div class="hp-field" aria-hidden="true">
+    <label>
+      Website
+      <input type="text" name="website" tabindex="-1" autocomplete="off" />
+    </label>
+  </div>
+  <div class="form-row">
+    <label>
+      <span>Name</span>
+      <input type="text" name="name" autocomplete="name" placeholder="Your name" required maxlength="120" />
+    </label>
+    <label>
+      <span>Email</span>
+      <input type="email" name="email" autocomplete="email" placeholder="you@school.edu" required maxlength="254" />
+    </label>
+  </div>
+  <label>
+    <span>School name</span>
+    <input type="text" name="school" autocomplete="organization" placeholder="Your school or group" required maxlength="160" />
+  </label>
+  <label>
+    <span>Your role</span>
+    <select name="role" required>
+      <option value="">Select role</option>
+      {SCHOOL_ROLES.map((value) => (
+        <option value={value}>{value}</option>
+      ))}
+    </select>
+  </label>
+  <fieldset>
+    <legend>What do you need from us?</legend>
+    <div class="contact-choices">
+      {INQUIRY_TYPES.map((value) => (
+        <label>
+          <input type="radio" name="inquiry" value={value} required />
+          <span>{value}</span>
+        </label>
+      ))}
+    </div>
+  </fieldset>
+  <fieldset>
+    <legend>Approximate student count</legend>
+    <div class="contact-choices">
+      {STUDENT_BANDS.map((value) => (
+        <label>
+          <input type="radio" name="students" value={value} required />
+          <span>{value}</span>
+        </label>
+      ))}
+    </div>
+  </fieldset>
+  <div class="site-select" data-site-select>
+    <span id="timeline-label">When would you like to start?</span>
+    <input type="hidden" name="timeline" value="" />
+    <button
+      type="button"
+      class="site-select-trigger"
+      aria-haspopup="listbox"
+      aria-expanded="false"
+      aria-labelledby="timeline-label timeline-value"
+    >
+      <span id="timeline-value">Choose a timeframe</span>
+      <span aria-hidden="true">▾</span>
+    </button>
+    <ul class="site-select-menu" role="listbox" aria-labelledby="timeline-label" hidden>
+      {TIMELINES.map((value) => (
+        <li role="option" aria-selected="false" data-value={value}>{value}</li>
+      ))}
+    </ul>
+  </div>
+  <label>
+    <span>Tell us about your school</span>
+    <textarea
+      name="message"
+      rows="5"
+      placeholder="Which modules matter most (admissions, fees, exams, parent portal)? Any deadlines we should know?"
+      required
+      maxlength="5000"
+    />
+  </label>
+  <div class="form-submit">
+    <button class="action action-primary form-submit-button" type="submit" data-submit-button>
+      <span data-submit-label>Send your brief</span>
+      <span class="submit-spinner" data-submit-spinner hidden></span>
+    </button>
+  </div>
+  <div class="contact-toast" data-form-status role="status" aria-live="polite" aria-atomic="true" hidden>
+    <span class="contact-toast-mark" aria-hidden="true">
+      <svg class="contact-toast-check" viewBox="0 0 20 20"><path d="m5 10.5 3.1 3.1L15.5 6.5" /></svg>
+      <svg class="contact-toast-error" viewBox="0 0 20 20"><path d="M10 5.5v5.25M10 14.25v.25" /></svg>
+    </span>
+    <span data-status-message></span>
+  </div>
+  <noscript>
+    <p>
+      Email <a href={`mailto:${site.abler.email}`}>{site.abler.email}</a> or call
+      <a href={site.abler.phoneHref}>{site.abler.phone}</a>.
+    </p>
+  </noscript>
+</form>
+
+<script is:inline define:vars={{ supportEmail: site.abler.email }}>
+  const form = document.querySelector('[data-contact-form]');
+  const status = document.querySelector('[data-form-status]');
+  const statusMessage = status?.querySelector('[data-status-message]');
+  const submit = form?.querySelector('[data-submit-button]');
+  const submitLabel = submit?.querySelector('[data-submit-label]');
+  const submitSpinner = submit?.querySelector('[data-submit-spinner]');
+  let startedAt = Date.now();
+  let submitting = false;
+
+  const fieldFor = (control) => {
+    if (control instanceof HTMLInputElement && control.type === 'radio') return control.closest('fieldset');
+    return control.closest('label') || control.closest('.site-select');
+  };
+
+  const setSubmitting = (isSubmitting) => {
+    submitting = isSubmitting;
+    if (!(submit instanceof HTMLButtonElement)) return;
+    submit.disabled = isSubmitting;
+    submit.setAttribute('aria-busy', String(isSubmitting));
+    if (submitLabel) submitLabel.textContent = isSubmitting ? 'Sending…' : 'Send your brief';
+    if (submitSpinner instanceof HTMLElement) submitSpinner.hidden = !isSubmitting;
+    form?.setAttribute('aria-busy', String(isSubmitting));
+  };
+
+  const hideToast = () => {
+    if (!(status instanceof HTMLElement)) return;
+    status.hidden = true;
+    status.removeAttribute('data-tone');
+  };
+
+  const showToast = (message, tone = 'error', kind = 'delivery') => {
+    if (!(status instanceof HTMLElement) || !(statusMessage instanceof HTMLElement)) return;
+    status.dataset.tone = tone;
+    status.dataset.kind = kind;
+    status.setAttribute('role', tone === 'error' ? 'alert' : 'status');
+    statusMessage.textContent = message;
+    status.hidden = false;
+  };
+
+  const waitForVisibleLoadingState = async (started) => {
+    const remaining = 700 - (performance.now() - started);
+    if (remaining > 0) await new Promise((resolve) => setTimeout(resolve, remaining));
+  };
+
+  const select = document.querySelector('[data-site-select]');
+  const trigger = select?.querySelector('.site-select-trigger');
+  const menu = select?.querySelector('.site-select-menu');
+  const hidden = select?.querySelector('input[name="timeline"]');
+  const valueLabel = select?.querySelector('#timeline-value');
+
+  const closeSelect = () => {
+    if (!(trigger instanceof HTMLButtonElement) || !(menu instanceof HTMLElement)) return;
+    trigger.setAttribute('aria-expanded', 'false');
+    menu.hidden = true;
+  };
+
+  const resetTimeline = () => {
+    if (hidden instanceof HTMLInputElement) hidden.value = '';
+    if (valueLabel) valueLabel.textContent = 'Choose a timeframe';
+    menu?.querySelectorAll('[role="option"]').forEach((item) => item.setAttribute('aria-selected', 'false'));
+    select?.classList.remove('is-invalid');
+  };
+
+  trigger?.addEventListener('click', () => {
+    if (!(trigger instanceof HTMLButtonElement) || !(menu instanceof HTMLElement)) return;
+    const open = trigger.getAttribute('aria-expanded') === 'true';
+    trigger.setAttribute('aria-expanded', String(!open));
+    menu.hidden = open;
+  });
+
+  menu?.querySelectorAll('[role="option"]').forEach((option) => {
+    option.addEventListener('click', () => {
+      const value = option.getAttribute('data-value') || option.textContent || '';
+      if (hidden instanceof HTMLInputElement) {
+        hidden.value = value;
+        hidden.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+      if (valueLabel) valueLabel.textContent = value;
+      menu.querySelectorAll('[role="option"]').forEach((item) =>
+        item.setAttribute('aria-selected', String(item === option)),
+      );
+      closeSelect();
+      trigger instanceof HTMLButtonElement && trigger.focus();
+    });
+  });
+
+  document.addEventListener('click', (event) => {
+    if (select && event.target instanceof Node && !select.contains(event.target)) closeSelect();
+  });
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!(form instanceof HTMLFormElement) || submitting) return;
+
+    const required = [...form.querySelectorAll('[required]')];
+    const invalid = required.filter((control) => !control.checkValidity());
+    if (hidden instanceof HTMLInputElement && !hidden.value) {
+      invalid.push(hidden);
+      select?.classList.add('is-invalid');
+    }
+    form.querySelectorAll('.is-invalid').forEach((field) => {
+      if (!field.classList.contains('site-select')) field.classList.remove('is-invalid');
+    });
+    if (invalid.length) {
+      invalid.forEach((control) => fieldFor(control)?.classList.add('is-invalid'));
+      showToast('Please complete the required fields.', 'error', 'validation');
+      const first = invalid[0];
+      if (first instanceof HTMLElement) first.focus();
+      return;
+    }
+
+    const data = new FormData(form);
+    const endpoint = form.dataset.formEndpoint;
+    if (!endpoint) {
+      showToast(`We could not send your message. Please email ${supportEmail}.`, 'error');
+      return;
+    }
+
+    hideToast();
+    setSubmitting(true);
+    const loadingStarted = performance.now();
+    let failureCode = '';
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: data.get('name'),
+          email: data.get('email'),
+          school: data.get('school'),
+          role: data.get('role'),
+          inquiry: data.get('inquiry'),
+          students: data.get('students'),
+          timeline: data.get('timeline'),
+          message: data.get('message'),
+          website: data.get('website') || '',
+          started: String(startedAt),
+        }),
+      });
+      const result = await response.json().catch(() => ({}));
+      await waitForVisibleLoadingState(loadingStarted);
+      if (!response.ok) {
+        failureCode = typeof result.code === 'string' ? result.code : '';
+        throw new Error(result.error || `Request failed with status ${response.status}`);
+      }
+      showToast('Thanks — we received your brief and will reply personally.', 'success');
+      form.reset();
+      startedAt = Date.now();
+      resetTimeline();
+    } catch (error) {
+      await waitForVisibleLoadingState(loadingStarted);
+      const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+      const message =
+        isLocal && failureCode === 'CONTACT_NOT_CONFIGURED'
+          ? 'Email delivery is not configured. Add RESEND_API_KEY to .env and restart the dev server.'
+          : `We could not send your message. Please try again or email ${supportEmail}.`;
+      showToast(message, 'error');
+    } finally {
+      setSubmitting(false);
+    }
+  });
+
+  form?.addEventListener('input', (event) => {
+    const target = event.target;
+    if (!(target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement || target instanceof HTMLSelectElement))
+      return;
+    const field = fieldFor(target);
+    if (target.checkValidity()) field?.classList.remove('is-invalid');
+    if (status instanceof HTMLElement && status.dataset.kind === 'validation' && !submitting) hideToast();
+  });
+</script>

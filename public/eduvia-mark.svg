@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none" role="img" aria-label="Eduvia">
+  <rect width="64" height="64" rx="14" fill="#1a5c3a"/>
+  <path d="M32 14L44 22V38C44 46 38 52 32 54C26 52 20 46 20 38V22L32 14Z" fill="#e8f7ee"/>
+  <path d="M28 36L32 40L40 30" stroke="#1a5c3a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="32" cy="24" r="3" fill="#c9a227"/>
+</svg>

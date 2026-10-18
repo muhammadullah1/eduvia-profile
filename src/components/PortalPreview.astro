@@ -1,0 +1,51 @@
+---
+interface Props {
+  role?: string;
+  items: string[];
+  active?: string;
+}
+
+const { role = 'Super Admin', items, active } = Astro.props;
+---
+
+<div
+  class="overflow-hidden rounded-2xl border border-border bg-card shadow-lg"
+  aria-hidden="true"
+>
+  <div class="flex items-center gap-2 border-b border-border bg-[#1a5c3a] px-4 py-3 text-white">
+    <img src="/eduvia-mark.svg" alt="" width="28" height="28" class="size-7 rounded-md" />
+    <div class="min-w-0">
+      <p class="truncate text-sm font-bold">Eduvia</p>
+      <p class="truncate text-[11px] text-white/80">{role} portal</p>
+    </div>
+  </div>
+  <div class="flex min-h-[220px]">
+    <nav class="hidden w-44 shrink-0 border-r border-border bg-[#f0f4f8] p-3 sm:block">
+      <ul class="space-y-1">
+        {items.map((label) => (
+          <li
+            class:list={[
+              'rounded-lg px-2.5 py-1.5 text-xs font-medium',
+              label === active
+                ? 'bg-white text-[#1a5c3a] shadow-sm'
+                : 'text-[#667085]',
+            ]}
+          >
+            {label}
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <div class="flex-1 p-4 md:p-6">
+      <div class="mb-4 h-3 w-32 rounded-full bg-muted" />
+      <div class="grid gap-3 sm:grid-cols-2">
+        <div class="h-20 rounded-xl border border-border/80 bg-background" />
+        <div class="h-20 rounded-xl border border-border/80 bg-background" />
+        <div class="h-20 rounded-xl border border-border/80 bg-background sm:col-span-2" />
+      </div>
+      <p class="mt-4 text-[11px] text-muted-foreground">
+        Illustration of the Eduvia portal layout. Not a capture of live school data.
+      </p>
+    </div>
+  </div>
+</div>

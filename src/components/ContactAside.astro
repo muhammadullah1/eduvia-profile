@@ -1,0 +1,36 @@
+---
+import { site } from '../data/site';
+---
+
+<aside class="contact-aside" data-reveal>
+  <p class="section-label">Direct</p>
+  <h2>Prefer to reach out yourself?</h2>
+  <div class="contact-links">
+    <a href={`mailto:${site.abler.email}`}>
+      <span class="contact-link-icon" aria-hidden="true">✉</span>
+      {site.abler.email}
+    </a>
+    <a href={site.abler.phoneHref}>
+      <span class="contact-link-icon" aria-hidden="true">☎</span>
+      {site.abler.phone}
+    </a>
+    <div class="contact-static">
+      <span class="contact-link-icon" aria-hidden="true">◎</span>
+      {site.abler.location}
+    </div>
+  </div>
+  <div class="next-steps">
+    <h3>What happens next</h3>
+    <ol>
+      <li><span>01</span>We read your brief and reply personally.</li>
+      <li><span>02</span>We arrange a conversation with someone who knows Eduvia.</li>
+      <li><span>03</span>We agree on a useful, realistic first step for your school.</li>
+    </ol>
+  </div>
+  <p class="mt-6 text-sm text-[var(--text)]">
+    Eduvia is built by
+    <a href={site.abler.url} class="font-semibold text-[var(--forest)] hover:underline" rel="noopener noreferrer">
+      {site.abler.name}
+    </a>.
+  </p>
+</aside>

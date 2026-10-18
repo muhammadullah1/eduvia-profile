@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import { site } from '../data/site';
+import { moduleGroups } from '../data/content';
+
+const meta = {
+  title: `Modules and features | ${site.name}`,
+  description:
+    'Every Eduvia module maps to the live portal: sessions, admissions, timetable, fees, examinations, parent access, and more.',
+  path: '/features',
+};
+
+const slug = (title: string) =>
+  title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+---
+
+<BaseLayout meta={meta} breadcrumbs={[{ label: 'Features' }]}>
+  <PageHero
+    eyebrow="Features"
+    title="Modules in the"
+    accent="live portal."
+    description="This list reflects Eduvia navigation and API capabilities today — not a generic checklist."
+  />
+
+  <section class="section-block">
+    <div class="wrap space-y-16">
+      {moduleGroups.map((group) => (
+        <div>
+          <h2 class="text-2xl font-bold text-ink">{group.title}</h2>
+          <p class="mt-2 max-w-2xl text-muted-foreground">{group.description}</p>
+          <ul class="mt-8 grid gap-4 sm:grid-cols-2">
+            {group.modules.map((mod) => {
+              const id = slug(mod.name);
+              const feesAnchor = mod.name.includes('Fee') ? 'fees' : id;
+              return (
+                <li id={feesAnchor} class="rounded-2xl border border-border bg-card p-5">
+                  <h3 class="font-bold text-ink">{mod.name}</h3>
+                  <p class="mt-2 text-sm leading-relaxed text-muted-foreground">{mod.detail}</p>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      ))}
+    </div>
+    <p class="mx-auto mt-14 max-w-7xl px-6 text-center text-sm text-muted-foreground">
+      Want a guided walkthrough?
+      <a href="/contact" class="font-semibold text-primary hover:underline">Contact Abler</a>
+    </p>
+  </section>
+</BaseLayout>

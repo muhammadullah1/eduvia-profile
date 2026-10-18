@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import ContactForm from '../components/ContactForm.astro';
+import ContactAside from '../components/ContactAside.astro';
+import { site } from '../data/site';
+
+const meta = {
+  title: `Contact | ${site.name}`,
+  description:
+    'Tell Abler about your school rollout, demo, or support needs for Eduvia. We read every brief personally.',
+  path: '/contact',
+};
+---
+
+<BaseLayout meta={meta} breadcrumbs={[{ label: 'Contact' }]}>
+  <PageHero
+    eyebrow="Contact"
+    title="Let's talk about"
+    accent="your school."
+    description="Tell us what you are working toward. We read every brief personally and reply with a useful, realistic next step — no sales funnel."
+  />
+  <section class="wrap contact-layout">
+    <ContactForm />
+    <ContactAside />
+  </section>
+</BaseLayout>

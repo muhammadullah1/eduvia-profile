@@ -1,0 +1,41 @@
+---
+import { navLinks, site } from '../data/site';
+---
+
+<footer class="site-footer">
+  <div class="wrap site-footer-inner">
+    <div class="site-footer-grid">
+      <div class="site-footer-brand">
+        <a href="/" class="site-footer-logo">
+          <img src="/eduvia-mark.svg" alt="" width="36" height="36" />
+          <span>{site.name}</span>
+        </a>
+        <p>{site.description}</p>
+        <p class="site-footer-powered">
+          {site.abler.tagline}
+          <a href={site.abler.url} rel="noopener noreferrer">{site.abler.name}</a>
+        </p>
+      </div>
+      <div>
+        <p class="footer-label">Explore</p>
+        <ul class="footer-links">
+          {navLinks.filter((l) => l.href !== '/contact').map((link) => (
+            <li><a href={link.href}>{link.label}</a></li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <p class="footer-label">Contact</p>
+        <ul class="footer-links">
+          <li><a href="/contact">Send a brief</a></li>
+          <li><a href={`mailto:${site.abler.email}`}>{site.abler.email}</a></li>
+          <li><a href={site.abler.phoneHref}>{site.abler.phone}</a></li>
+        </ul>
+        <p class="footer-meta">{site.abler.location}</p>
+      </div>
+    </div>
+    <p class="site-footer-legal">
+      &copy; {new Date().getFullYear()} {site.abler.name}. Eduvia is a school management product of Abler.
+    </p>
+  </div>
+</footer>

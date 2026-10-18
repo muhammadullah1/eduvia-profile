@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import { site } from '../data/site';
+import { faqs } from '../data/content';
+
+const meta = {
+  title: `FAQ | ${site.name}`,
+  description:
+    'Answers about Eduvia roles, admissions, fees, assessments, parent access, and working with Abler.',
+  path: '/faq',
+};
+---
+
+<BaseLayout meta={meta} breadcrumbs={[{ label: 'FAQ' }]}>
+  <PageHero
+    eyebrow="FAQ"
+    title="Questions schools"
+    accent="ask us."
+    description="Answers grounded in how Eduvia works in the portal today."
+  />
+
+  <section class="section-block">
+    <div class="wrap max-w-3xl space-y-3">
+      {faqs.map((faq) => (
+        <details class="rounded-2xl border border-border bg-card open:shadow-sm">
+          <summary class="cursor-pointer px-5 py-4 font-semibold text-ink marker:content-none list-none [&::-webkit-details-marker]:hidden">
+            {faq.q}
+          </summary>
+          <p class="border-t border-border px-5 py-4 text-sm leading-relaxed text-muted-foreground">{faq.a}</p>
+        </details>
+      ))}
+    </div>
+    <p class="mx-auto mt-10 max-w-3xl px-6 text-center text-sm text-muted-foreground">
+      <a href="/contact" class="font-semibold text-primary hover:underline">Contact Abler</a>
+      for school-specific questions.
+    </p>
+  </section>
+</BaseLayout>

@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import { site } from '../data/site';
+
+const meta = {
+  title: `About | ${site.name}`,
+  description:
+    'Eduvia is Abler Software Solutions’ school management platform for academics, fees, assessments, and family communication.',
+  path: '/about',
+};
+---
+
+<BaseLayout meta={meta} breadcrumbs={[{ label: 'About' }]}>
+  <PageHero
+    eyebrow="About"
+    title="School software from a"
+    accent="product engineering team."
+    description="Eduvia is built by Abler for schools that need registers, fees, assessments, and parent communication in one system — with permissions that match how your staff actually work."
+  />
+  <section class="section-block">
+    <div class="wrap max-w-3xl space-y-10 text-[var(--text)]" data-reveal>
+      <div>
+        <h2 class="text-xl font-bold text-[var(--ink)]">What we optimise for</h2>
+        <p class="mt-3 leading-relaxed">
+          Clear role boundaries, review steps before content reaches parents, and fee workflows that match counter and leadership practice. The modules on this site are the modules in the live portal.
+        </p>
+      </div>
+      <div>
+        <h2 class="text-xl font-bold text-[var(--ink)]">Who Eduvia serves</h2>
+        <p class="mt-3 leading-relaxed">
+          Super administrators, operations teams, accountants, teachers, and parents — each with a dedicated workspace instead of one overloaded dashboard.
+        </p>
+      </div>
+      <p>
+        <a href="/contact" class="action action-primary">Start a conversation</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>
