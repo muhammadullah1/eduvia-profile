@@ -1,0 +1,56 @@
+---
+interface Props {
+  role?: string;
+  section?: string;
+  items?: string[];
+}
+
+const {
+  role = 'Operations',
+  section = 'Students',
+  items = ['Overview', 'Sessions', 'Classes', 'Students', 'Fees', 'Timetable'],
+} = Astro.props;
+---
+
+<div class="product-shell" aria-hidden="true">
+  <div class="product-shell-chrome">
+    <span class="product-shell-dot"></span>
+    <span class="product-shell-dot"></span>
+    <span class="product-shell-dot"></span>
+    <span class="product-shell-url">app.eduvia · {role.toLowerCase()}</span>
+  </div>
+  <div class="product-shell-body">
+    <aside class="product-shell-sidebar">
+      <div class="product-shell-brand">
+        <img src="/eduvia-mark.svg" alt="" width="24" height="24" />
+        <span>Eduvia</span>
+      </div>
+      <ul>
+        {items.map((label) => (
+          <li class:list={[{ 'is-active': label === section }]}>{label}</li>
+        ))}
+      </ul>
+    </aside>
+    <div class="product-shell-main">
+      <div class="product-shell-topbar">
+        <div>
+          <p class="product-shell-session">Session 2026–2027</p>
+          <h3>{section}</h3>
+        </div>
+        <div class="product-shell-avatar" />
+      </div>
+      <div class="product-shell-metrics">
+        <div class="metric"><span>Enrolled</span><strong>1,248</strong></div>
+        <div class="metric"><span>Fee collected</span><strong>82%</strong></div>
+        <div class="metric"><span>Attendance</span><strong>94%</strong></div>
+      </div>
+      <div class="product-shell-table">
+        <div class="row head"><span>Student</span><span>Class</span><span>Status</span></div>
+        <div class="row"><span>Amina Khan</span><span>Grade 8-A</span><span class="pill ok">Active</span></div>
+        <div class="row"><span>Hassan Ali</span><span>Grade 8-B</span><span class="pill ok">Active</span></div>
+        <div class="row"><span>Sara Ahmed</span><span>Grade 7-A</span><span class="pill warn">Fee due</span></div>
+      </div>
+    </div>
+  </div>
+  <p class="product-shell-caption">Product UI mock — sample data only</p>
+</div>

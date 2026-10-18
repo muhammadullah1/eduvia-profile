@@ -2,35 +2,23 @@
 import { site } from '../data/site';
 ---
 
-<aside class="contact-aside" data-reveal>
-  <p class="section-label">Direct</p>
-  <h2>Prefer to reach out yourself?</h2>
-  <div class="contact-links">
-    <a href={`mailto:${site.abler.email}`}>
-      <span class="contact-link-icon" aria-hidden="true">✉</span>
-      {site.abler.email}
-    </a>
-    <a href={site.abler.phoneHref}>
-      <span class="contact-link-icon" aria-hidden="true">☎</span>
-      {site.abler.phone}
-    </a>
-    <div class="contact-static">
-      <span class="contact-link-icon" aria-hidden="true">◎</span>
-      {site.abler.location}
+<aside data-reveal>
+  <div class="contact-side-card">
+    <h2>Built for school teams</h2>
+    <p>Admissions, fees, timetable, exams, and parent portals — one product, five role-based workspaces.</p>
+    <a href="/platform" class="btn btn-ghost mt-4">Explore the platform</a>
+  </div>
+  <div class="contact-side-card" style="background: var(--edu-paper);">
+    <p class="kicker">Direct line</p>
+    <div class="contact-direct">
+      <a href={`mailto:${site.abler.email}`}>{site.abler.email}</a>
+      <a href={site.abler.phoneHref}>{site.abler.phone}</a>
+      <span class="text-sm text-[var(--edu-muted)]">{site.abler.location}</span>
     </div>
   </div>
-  <div class="next-steps">
-    <h3>What happens next</h3>
-    <ol>
-      <li><span>01</span>We read your brief and reply personally.</li>
-      <li><span>02</span>We arrange a conversation with someone who knows Eduvia.</li>
-      <li><span>03</span>We agree on a useful, realistic first step for your school.</li>
-    </ol>
-  </div>
-  <p class="mt-6 text-sm text-[var(--text)]">
-    Eduvia is built by
-    <a href={site.abler.url} class="font-semibold text-[var(--forest)] hover:underline" rel="noopener noreferrer">
-      {site.abler.name}
-    </a>.
-  </p>
+  <ol class="mt-4 space-y-2 text-sm text-[var(--edu-body)] list-none p-0 m-0">
+    <li><strong class="text-[var(--edu-brand)]">1.</strong> We review your school context.</li>
+    <li><strong class="text-[var(--edu-brand)]">2.</strong> We walk through Eduvia with your team.</li>
+    <li><strong class="text-[var(--edu-brand)]">3.</strong> We plan a realistic rollout.</li>
+  </ol>
 </aside>

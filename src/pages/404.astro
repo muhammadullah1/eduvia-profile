@@ -11,19 +11,17 @@ const meta = {
 ---
 
 <BaseLayout meta={meta}>
-  <section class="mx-auto max-w-2xl px-6 py-24 text-center">
-    <p class="text-sm font-semibold text-primary">404</p>
-    <h1 class="mt-2 text-4xl font-extrabold text-ink">Page not found</h1>
-    <p class="mt-4 text-muted-foreground">
-      Try the platform overview, features list, or contact page.
-    </p>
-    <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-      <a href="/" class="inline-flex h-11 items-center rounded-xl bg-primary px-6 text-sm font-bold text-primary-foreground hover:bg-primary/90">
-        Home
-      </a>
-      <a href="/contact" class="inline-flex h-11 items-center rounded-xl border border-border px-6 text-sm font-bold hover:bg-muted">
-        Contact
-      </a>
+  <section class="section">
+    <div class="wrap max-w-2xl text-center" data-reveal>
+      <p class="kicker">404</p>
+      <h1 class="section-title">Page not found</h1>
+      <p class="section-lead mx-auto">
+        Try the platform overview, features list, or request a demo.
+      </p>
+      <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <a href="/" class="btn btn-primary">Home</a>
+        <a href="/contact" class="btn btn-ghost">Contact</a>
+      </div>
     </div>
   </section>
 </BaseLayout>

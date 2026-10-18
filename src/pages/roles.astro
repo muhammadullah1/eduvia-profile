@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHero from '../components/PageHero.astro';
+import PageBanner from '../components/PageBanner.astro';
 import { site } from '../data/site';
 import { portalRoles } from '../data/content';
 
@@ -13,23 +13,22 @@ const meta = {
 ---
 
 <BaseLayout meta={meta} breadcrumbs={[{ label: 'Roles' }]}>
-  <PageHero
-    eyebrow="Roles"
-    title="Five portals,"
-    accent="one product."
+  <PageBanner
+    kicker="Roles"
+    title="Five portals, one product"
     description="Each role signs in to a dedicated workspace. Menus follow Eduvia navigation; sensitive actions are enforced again on the API."
   />
 
-  <section class="section-block">
+  <section class="section">
     <div class="wrap grid gap-6 md:grid-cols-2">
       {portalRoles.map((role) => (
-        <article class="rounded-2xl border border-border bg-card p-6 md:p-8">
-          <h2 class="text-xl font-bold text-ink">{role.title}</h2>
-          <p class="mt-3 text-sm leading-relaxed text-muted-foreground">{role.summary}</p>
-          <ul class="mt-5 space-y-2 text-sm text-ink">
+        <article class="bento-card" data-reveal>
+          <h3>{role.title}</h3>
+          <p>{role.summary}</p>
+          <ul class="mt-4 space-y-2 text-sm text-[var(--edu-body)] list-none p-0 m-0">
             {role.highlights.map((item) => (
               <li class="flex gap-2">
-                <span class="mt-1 text-primary" aria-hidden="true">•</span>
+                <span class="text-[var(--edu-brand)]" aria-hidden="true">→</span>
                 <span>{item}</span>
               </li>
             ))}
@@ -37,8 +36,8 @@ const meta = {
         </article>
       ))}
     </div>
-    <p class="mx-auto mt-12 max-w-7xl px-6 text-center text-sm text-muted-foreground">
-      Module-level detail is on the <a href="/features" class="font-semibold text-primary hover:underline">features page</a>.
+    <p class="wrap mt-12 text-center text-sm text-[var(--edu-muted)]">
+      Module-level detail is on the <a href="/features" class="font-semibold text-[var(--edu-brand)] hover:underline">features page</a>.
     </p>
   </section>
 </BaseLayout>

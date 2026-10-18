@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHero from '../components/PageHero.astro';
-import PortalPreview from '../components/PortalPreview.astro';
+import PageBanner from '../components/PageBanner.astro';
+import ProductShell from '../components/ProductShell.astro';
 import { site } from '../data/site';
 
 const meta = {
@@ -19,7 +19,7 @@ const flows = [
       'Leaders define the current session, classes, subjects, and timetable. Teachers and parents inherit that structure in their portals.',
     preview: {
       role: 'Super Admin',
-      active: 'Sessions',
+      section: 'Sessions',
       items: ['Dashboard', 'Sessions', 'Classes', 'Subjects', 'Timetable', 'Settings'],
     },
   },
@@ -30,7 +30,7 @@ const flows = [
       'Operations marks absences and assigns substitutes. Teachers take attendance, submit daily chapter updates, and enter test marks. Reviews gate what parents see.',
     preview: {
       role: 'Teacher',
-      active: 'Attendance',
+      section: 'Attendance',
       items: ['Today', 'My classes', 'Attendance', 'Daily update', 'Weekly tests', 'Marks entry'],
     },
   },
@@ -41,7 +41,7 @@ const flows = [
       'Parents see fees, receipts, timetable, published tests, results, and approved updates. Visibility follows school rules and publishing steps.',
     preview: {
       role: 'Parent',
-      active: 'Fees & receipts',
+      section: 'Fees & receipts',
       items: ['My child', 'Attendance', 'Results & DMC', 'Weekly tests', 'Fees & receipts', 'Updates'],
     },
   },
@@ -49,29 +49,30 @@ const flows = [
 ---
 
 <BaseLayout meta={meta} breadcrumbs={[{ label: 'Platform' }]}>
-  <PageHero
-    eyebrow="Platform"
-    title="How Eduvia"
-    accent="fits together."
+  <PageBanner
+    kicker="Platform"
+    title="How Eduvia fits together"
     description="Connected workflows across five role portals, backed by the same API permissions your school uses in production."
   />
 
-  <section class="section-block">
+  <section class="section alt">
     <div class="wrap space-y-20">
       {flows.map((flow) => (
-        <article id={flow.id} class="grid items-center gap-10 lg:grid-cols-2">
+        <article id={flow.id} class="grid items-center gap-10 lg:grid-cols-2" data-reveal>
           <div>
-            <h2 class="text-2xl font-bold text-ink">{flow.title}</h2>
-            <p class="mt-4 leading-relaxed text-muted-foreground">{flow.body}</p>
+            <h2 class="section-title text-2xl">{flow.title}</h2>
+            <p class="mt-4 leading-relaxed text-[var(--edu-body)]">{flow.body}</p>
           </div>
-          <PortalPreview role={flow.preview.role} active={flow.preview.active} items={flow.preview.items} />
+          <ProductShell
+            role={flow.preview.role}
+            section={flow.preview.section}
+            items={flow.preview.items}
+          />
         </article>
       ))}
     </div>
-    <p class="mx-auto mt-16 max-w-7xl px-6 text-center">
-      <a href="/roles" class="inline-flex h-11 items-center rounded-xl border border-border bg-card px-6 text-sm font-bold hover:bg-muted">
-        View all role portals
-      </a>
+    <p class="wrap mt-16 text-center">
+      <a href="/roles" class="btn btn-ghost">View all role portals</a>
     </p>
   </section>
 </BaseLayout>

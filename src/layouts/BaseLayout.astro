@@ -83,12 +83,7 @@ const organizationSchema = {
     <meta name="twitter:image" content={ogImageAbsolute} />
     <meta name="twitter:image:alt" content={ogImageAlt} />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource-variable/geist@5.2.8/index.min.css" />
     <link rel="icon" href="/eduvia-mark.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/eduvia-mark.svg" />
 
@@ -98,8 +93,8 @@ const organizationSchema = {
     <a class="skip-link" href="#main">Skip to content</a>
     <SiteHeader />
     {breadcrumbs.length > 0 && (
-      <nav aria-label="Breadcrumb" class="border-b border-border/60 bg-card">
-        <ol class="mx-auto flex max-w-7xl flex-wrap items-center gap-1 px-6 py-3 text-sm text-muted-foreground">
+      <nav aria-label="Breadcrumb" class="breadcrumb">
+        <ol class="wrap">
           <li>
             <a href="/" class="hover:text-foreground">Home</a>
           </li>

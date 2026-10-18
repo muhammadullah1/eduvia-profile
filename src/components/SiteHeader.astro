@@ -4,17 +4,14 @@ import { navLinks, site } from '../data/site';
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
 
-<header class="site-header">
-  <div class="wrap site-header-inner">
-    <a href="/" class="site-brand">
-      <img src="/eduvia-mark.svg" alt="" width="34" height="34" />
-      <span>
-        <strong>{site.name}</strong>
-        <small>{site.productLine}</small>
-      </span>
+<header class="edu-header">
+  <div class="wrap edu-header-row">
+    <a href="/" class="edu-logo">
+      <img src="/eduvia-mark.svg" alt="" width="36" height="36" />
+      <span>{site.name}</span>
     </a>
 
-    <nav class="site-nav" aria-label="Primary">
+    <nav class="edu-nav" aria-label="Primary">
       {navLinks.map((link) => (
         <a href={link.href} aria-current={currentPath === link.href ? 'page' : undefined}>
           {link.label}
@@ -22,19 +19,17 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
       ))}
     </nav>
 
-    <a href="/contact" class="action action-primary site-header-cta">Talk to us</a>
+    <div class="edu-header-actions">
+      <a href="/contact" class="btn btn-primary">Request a demo</a>
+    </div>
 
-    <details class="site-menu">
-      <summary aria-label="Open menu">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-          <path d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
+    <details class="edu-mobile-nav">
+      <summary aria-label="Menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 18h16"/></svg>
       </summary>
-      <div class="site-menu-panel">
-        {navLinks.map((link) => (
-          <a href={link.href}>{link.label}</a>
-        ))}
-        <a href="/contact" class="action action-primary">Talk to us</a>
+      <div class="edu-mobile-panel">
+        {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+        <a href="/contact" class="btn btn-primary btn-block">Request a demo</a>
       </div>
     </details>
   </div>

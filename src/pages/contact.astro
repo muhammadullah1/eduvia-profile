@@ -1,27 +1,27 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHero from '../components/PageHero.astro';
+import PageBanner from '../components/PageBanner.astro';
 import ContactForm from '../components/ContactForm.astro';
 import ContactAside from '../components/ContactAside.astro';
 import { site } from '../data/site';
 
 const meta = {
-  title: `Contact | ${site.name}`,
-  description:
-    'Tell Abler about your school rollout, demo, or support needs for Eduvia. We read every brief personally.',
+  title: `Request a demo | ${site.name}`,
+  description: 'Book an Eduvia walkthrough for your school. Talk to the Abler team that builds and deploys the platform.',
   path: '/contact',
 };
 ---
 
 <BaseLayout meta={meta} breadcrumbs={[{ label: 'Contact' }]}>
-  <PageHero
-    eyebrow="Contact"
-    title="Let's talk about"
-    accent="your school."
-    description="Tell us what you are working toward. We read every brief personally and reply with a useful, realistic next step — no sales funnel."
+  <PageBanner
+    kicker="Get started"
+    title="See Eduvia with your school in mind"
+    description="Share your context and we will schedule a focused demo — not a generic sales deck."
   />
-  <section class="wrap contact-layout">
-    <ContactForm />
-    <ContactAside />
+  <section class="contact-page">
+    <div class="wrap contact-grid">
+      <ContactForm />
+      <ContactAside />
+    </div>
   </section>
 </BaseLayout>

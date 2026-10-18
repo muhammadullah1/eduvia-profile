@@ -1,83 +1,90 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PortalPreview from '../components/PortalPreview.astro';
+import ProductShell from '../components/ProductShell.astro';
 import { site } from '../data/site';
-import { homePillars, trustPoints } from '../data/content';
+import { homePillars, trustPoints, portalRoles } from '../data/content';
 
 const meta = {
-  title: `${site.name} | ${site.productLine}`,
+  title: `${site.name} — School management for modern schools`,
   description: site.description,
   path: '/',
-  ogImageAlt: 'Eduvia school management platform by Abler',
 };
 ---
 
 <BaseLayout meta={meta}>
-  <section class="home-hero">
-    <div class="wrap home-hero-grid">
-      <div class="home-hero-copy" data-reveal>
-        <p class="section-label">{site.abler.tagline}</p>
-        <h1>School operations software with <em>role-ready portals</em></h1>
-        <p>{site.description}</p>
-        <div class="home-hero-actions">
-          <a href="/contact" class="action action-primary">Talk to Abler about Eduvia</a>
-          <a href="/platform" class="action action-secondary">See how it fits together</a>
+  <section class="landing-hero">
+    <div class="wrap landing-hero-grid">
+      <div data-reveal>
+        <p class="kicker">School management SaaS</p>
+        <h1>Run your school on <span>one platform</span> your staff already understands</h1>
+        <p class="landing-hero-lead">{site.description}</p>
+        <div class="landing-hero-cta">
+          <a href="/contact" class="btn btn-primary">Request a demo</a>
+          <a href="/roles" class="btn btn-ghost">See role portals</a>
+        </div>
+        <div class="landing-badges">
+          <span class="landing-badge">Admissions</span>
+          <span class="landing-badge">Fees</span>
+          <span class="landing-badge">Timetable</span>
+          <span class="landing-badge">Parent app</span>
         </div>
       </div>
       <div data-reveal>
-        <PortalPreview
-          role="Operations Manager"
-          active="Timetable"
-          items={[
-            'Overview',
-            'Sessions',
-            'Classes',
-            'Timetable',
-            'Substitutes',
-            'Admissions',
-            'Students',
-            'Daily Test Schedule',
-          ]}
-        />
+        <ProductShell role="Operations" section="Students" />
       </div>
     </div>
   </section>
 
-  <section class="section-block">
+  <section class="section alt">
     <div class="wrap" data-reveal>
-      <p class="section-label">Why schools choose Eduvia</p>
-      <h2 class="text-3xl font-extrabold tracking-tight text-[var(--ink)] md:text-4xl">
-        Built for accountability, not checkbox demos
-      </h2>
-      <div class="feature-grid cols-3 mt-10">
-        {homePillars.map((pillar) => (
-          <article class="card">
-            <h3 class="text-lg font-bold text-[var(--ink)]">{pillar.title}</h3>
-            <p class="mt-3 text-sm leading-relaxed text-[var(--text)]">{pillar.body}</p>
-            <a href={pillar.href} class="mt-5 inline-block text-sm font-bold text-[var(--forest)] hover:underline">
-              {pillar.cta}
-            </a>
+      <p class="kicker">Portals</p>
+      <h2 class="section-title">Five roles. One source of truth.</h2>
+      <p class="section-lead">Each team sees only what they need — enforced in the API, not just hidden in the menu.</p>
+      <div class="bento mt-8">
+        {portalRoles.slice(0, 3).map((role) => (
+          <article class="bento-card">
+            <h3>{role.title}</h3>
+            <p>{role.summary}</p>
+          </article>
+        ))}
+        <article class="bento-card span-2">
+          <h3>Parents stay in the loop</h3>
+          <p>{portalRoles.find((r) => r.id === 'parent')?.summary}</p>
+          <a href="/roles">All role portals →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap" data-reveal>
+      <p class="kicker">Why Eduvia</p>
+      <h2 class="section-title">Operations software, not a brochure</h2>
+      <div class="bento">
+        {homePillars.map((p) => (
+          <article class="bento-card">
+            <h3>{p.title}</h3>
+            <p>{p.body}</p>
+            <a href={p.href}>{p.cta} →</a>
           </article>
         ))}
       </div>
     </div>
   </section>
 
-  <section class="section-block is-card">
+  <section class="section alt">
     <div class="wrap" data-reveal>
-      <h2 class="text-2xl font-extrabold text-[var(--ink)] md:text-3xl">Designed for real school workflows</h2>
-      <ul class="mt-10 grid gap-8 md:grid-cols-3">
-        {trustPoints.map((point) => (
-          <li>
-            <h3 class="font-bold text-[var(--ink)]">{point.title}</h3>
-            <p class="mt-2 text-sm leading-relaxed text-[var(--text)]">{point.body}</p>
+      <h2 class="section-title">Trust by design</h2>
+      <ul class="mt-8 grid gap-6 md:grid-cols-3 list-none p-0 m-0">
+        {trustPoints.map((t) => (
+          <li class="bento-card">
+            <h3>{t.title}</h3>
+            <p>{t.body}</p>
           </li>
         ))}
       </ul>
-      <p class="mt-12 text-center text-sm text-[var(--text)]">
-        <a href="/roles" class="font-bold text-[var(--forest)] hover:underline">Compare role portals</a>
-        <span class="mx-2" aria-hidden="true">·</span>
-        <a href="/features" class="font-bold text-[var(--forest)] hover:underline">Full module list</a>
+      <p class="mt-10 text-center">
+        <a href="/contact" class="btn btn-primary">Talk to our team</a>
       </p>
     </div>
   </section>
