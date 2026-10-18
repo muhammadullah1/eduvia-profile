@@ -6,9 +6,16 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 
 <header class="edu-header">
   <div class="wrap edu-header-row">
-    <a href="/" class="edu-logo">
-      <img src="/eduvia-mark.svg" alt="" width="36" height="36" />
-      <span>{site.name}</span>
+    <a href="/" class="edu-logo" aria-label={`${site.name} home`}>
+      <img
+        class="edu-logo-image"
+        src="/eduvia-logo.svg"
+        alt={site.name}
+        width="176"
+        height="44"
+        decoding="async"
+        fetchpriority="high"
+      />
     </a>
 
     <nav class="edu-nav" aria-label="Primary">

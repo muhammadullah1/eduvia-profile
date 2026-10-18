@@ -5,9 +5,15 @@ import { navLinks, site } from '../data/site';
 <footer class="edu-footer">
   <div class="wrap edu-footer-grid">
     <div class="edu-footer-brand">
-      <a href="/" class="edu-logo">
-        <img src="/eduvia-mark.svg" alt="" width="32" height="32" />
-        <span>{site.name}</span>
+      <a href="/" class="edu-logo" aria-label={`${site.name} home`}>
+        <img
+          class="edu-logo-image"
+          src="/eduvia-logo.svg"
+          alt={site.name}
+          width="176"
+          height="44"
+          decoding="async"
+        />
       </a>
       <p>{site.description}</p>
       <p class="edu-footer-by">

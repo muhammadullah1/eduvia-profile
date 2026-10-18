@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 44" fill="none" role="img" aria-label="Eduvia" preserveAspectRatio="xMidYMid meet">
+  <g transform="translate(0 2)">
+    <rect width="40" height="40" rx="11" fill="#1a5c3a"/>
+    <path
+      d="M20 11.5c5.3 3 9 5.1 9 5.1v5.9c0 4.5-3.6 8.4-9 9.6-5.4-1.2-9-5.1-9-9.6v-5.9s3.7-2.1 9-5.1Z"
+      fill="#e8f7ee"
+    />
+    <path
+      d="M11.5 16.5 20 12l8.5 4.5"
+      stroke="#1a5c3a"
+      stroke-width="1.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <path
+      d="M13.5 18.2v4.9c0 2.6 2.6 4.9 6.2 5.8 3.6-.9 6.2-3.2 6.2-5.8v-4.9"
+      stroke="#1a5c3a"
+      stroke-width="1.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <circle cx="20" cy="9.5" r="2" fill="#c9a227"/>
+  </g>
+  <text
+    x="52"
+    y="30"
+    fill="#0f172a"
+    font-family="Geist, system-ui, -apple-system, Segoe UI, sans-serif"
+    font-size="22"
+    font-weight="700"
+    letter-spacing="-0.02em"
+  >Eduvia</text>
+</svg>
