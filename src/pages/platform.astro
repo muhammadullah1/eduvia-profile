@@ -13,10 +13,17 @@ const meta = {
 
 const flows = [
   {
+    step: '01',
     id: 'foundation',
-    title: 'Set up the year',
+    title: 'Academic Foundation & Setup',
+    subtitle: 'Define the year before day-to-day work begins',
     body:
-      'Leaders define the current session, classes, subjects, and timetable. Teachers and parents inherit that structure in their portals.',
+      'School leadership sets up the active session, class sections, subjects catalog, fee schedules, and conflict-aware timetables. Teachers and families automatically inherit this unified structure in their dedicated portals.',
+    highlights: [
+      'One active session rule prevents mismatched records',
+      'Class sections with linked teachers and subject assignments',
+      'Timetable engine with conflict-free period assignments',
+    ],
     preview: {
       role: 'Super Admin',
       section: 'Sessions',
@@ -24,10 +31,17 @@ const flows = [
     },
   },
   {
+    step: '02',
     id: 'teaching',
-    title: 'Run the school week',
+    title: 'Day-to-Day Teaching & Operations',
+    subtitle: 'Substitute cover, lesson updates, and marks in real time',
     body:
-      'Operations marks absences and assigns substitutes. Teachers take attendance, submit daily chapter updates, and enter test marks. Reviews gate what parents see.',
+      'Operations managers track teacher absences and assign substitutes with one click. Teachers open their Today view to mark attendance, log daily chapters from the lesson plan, and enter test marks.',
+    highlights: [
+      'Instant substitute reassignment by period',
+      'Daily chapter updates mapped directly to syllabus plans',
+      'Draft exam marks and secure verification lock steps',
+    ],
     preview: {
       role: 'Teacher',
       section: 'Attendance',
@@ -35,10 +49,17 @@ const flows = [
     },
   },
   {
+    step: '03',
     id: 'family',
-    title: 'Keep families informed',
+    title: 'Transparent Family Communication',
+    subtitle: 'Keep parents informed with verified, approved updates',
     body:
-      'Parents see fees, receipts, timetable, published tests, results, and approved updates. Visibility follows school rules and publishing steps.',
+      'Parents view daily attendance, verified DMC report cards, upcoming test schedules, and fee receipts without visiting the front desk. Crucially, leadership decides exactly what is published and when.',
+    highlights: [
+      'Real-time attendance notifications and weekly test scores',
+      'Clear fee status with payment history and printable receipts',
+      'Administrative review gates prevent accidental broadcasts',
+    ],
     preview: {
       role: 'Parent',
       section: 'Fees & receipts',
@@ -48,31 +69,69 @@ const flows = [
 ];
 ---
 
-<BaseLayout meta={meta} breadcrumbs={[{ label: 'Platform' }]}>
+<BaseLayout meta={meta}>
   <PageBanner
-    kicker="Platform"
+    kicker="Platform Architecture"
     title="How Eduvia fits together"
-    description="Connected workflows across five role portals, backed by the same API permissions your school uses in production."
+    description="A connected operational loop across five role portals, backed by the same API permissions your school uses in production."
   />
 
   <section class="section alt">
-    <div class="wrap space-y-20">
-      {flows.map((flow) => (
-        <article id={flow.id} class="grid items-center gap-10 lg:grid-cols-2" data-reveal>
-          <div>
-            <h2 class="section-title text-2xl">{flow.title}</h2>
-            <p class="mt-4 leading-relaxed text-[var(--edu-body)]">{flow.body}</p>
-          </div>
-          <ProductShell
-            role={flow.preview.role}
-            section={flow.preview.section}
-            items={flow.preview.items}
-          />
-        </article>
-      ))}
+    <div class="wrap space-y-16 sm:space-y-24">
+      {flows.map((flow, index) => {
+        const isReversed = index % 2 === 1;
+        return (
+          <article id={flow.id} class="grid items-center gap-8 lg:gap-14 lg:grid-cols-2" data-reveal>
+            <div class:list={[{ 'lg:order-2': isReversed }]}>
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-xs font-bold text-emerald-800">
+                <span>Phase {flow.step}</span>
+                <span class="w-1 h-1 rounded-full bg-emerald-600"></span>
+                <span class="text-emerald-600 font-medium">{flow.subtitle}</span>
+              </div>
+              
+              <h2 class="section-title text-2xl sm:text-3xl mt-3">{flow.title}</h2>
+              <p class="mt-4 leading-relaxed text-[var(--edu-body)] text-base sm:text-lg">{flow.body}</p>
+              
+              <ul class="mt-6 space-y-2.5 list-none p-0 m-0">
+                {flow.highlights.map((item) => (
+                  <li class="flex items-start gap-2.5 text-sm sm:text-base text-[var(--edu-body)]">
+                    <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-emerald-100 text-emerald-700 flex-shrink-0 mt-0.5">
+                      <svg class="w-3.5 h-3.5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                      </svg>
+                    </span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div class:list={['w-full max-w-full overflow-hidden', { 'lg:order-1': isReversed }]}>
+              <ProductShell
+                role={flow.preview.role}
+                section={flow.preview.section}
+                items={flow.preview.items}
+              />
+            </div>
+          </article>
+        );
+      })}
     </div>
-    <p class="wrap mt-16 text-center">
-      <a href="/roles" class="btn btn-ghost">View all role portals</a>
-    </p>
+
+    <div class="wrap mt-20 pt-10 border-t border-slate-200 text-center">
+      <h3 class="text-xl sm:text-2xl font-bold text-[var(--edu-ink)]">Want to see how this fits your school's current setup?</h3>
+      <p class="mt-2 text-sm text-[var(--edu-muted)] max-w-lg mx-auto">
+        We can walk through your classes, sessions, and fee collection methods during a 20-minute live demo.
+      </p>
+      <div class="mt-6 flex flex-wrap justify-center gap-3">
+        <a href="/contact" class="btn btn-primary">
+          <span>Schedule a demo</span>
+          <svg class="w-4 h-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" />
+          </svg>
+        </a>
+        <a href="/features" class="btn btn-ghost">Browse all modules</a>
+      </div>
+    </div>
   </section>
 </BaseLayout>

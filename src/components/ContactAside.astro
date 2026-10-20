@@ -2,23 +2,72 @@
 import { site } from '../data/site';
 ---
 
-<aside data-reveal>
+<aside class="space-y-6" data-reveal>
   <div class="contact-side-card">
-    <h2>Built for school teams</h2>
-    <p>Admissions, fees, timetable, exams, and parent portals — one product, five role-based workspaces.</p>
-    <a href="/platform" class="btn btn-ghost mt-4">Explore the platform</a>
+    <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold mb-3">
+      <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+      <span>Direct Deployment Team</span>
+    </div>
+    <h2 class="text-xl font-bold text-slate-950">Built for real school workflows</h2>
+    <p class="mt-2 text-sm text-slate-600 leading-relaxed">
+      Admissions, fees, timetable, substitutes, exams, and parent portals — all unified in one product with five role-based workspaces.
+    </p>
+    <a href="/platform" class="btn btn-ghost btn-sm mt-4">
+      <span>Explore platform tour</span>
+      <svg class="w-3.5 h-3.5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" />
+      </svg>
+    </a>
   </div>
-  <div class="contact-side-card" style="background: var(--edu-paper);">
-    <p class="kicker">Direct line</p>
+
+  <div class="contact-side-card !bg-white">
+    <div class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Direct Contact</div>
     <div class="contact-direct">
-      <a href={`mailto:${site.abler.email}`}>{site.abler.email}</a>
-      <a href={site.abler.phoneHref}>{site.abler.phone}</a>
-      <span class="text-sm text-[var(--edu-muted)]">{site.abler.location}</span>
+      <a href={`mailto:${site.abler.email}`} class="flex items-center gap-2.5 text-sm text-slate-800 hover:text-emerald-700">
+        <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center flex-shrink-0">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+        </div>
+        <span class="font-semibold">{site.abler.email}</span>
+      </a>
+      
+      <a href={site.abler.phoneHref} class="flex items-center gap-2.5 text-sm text-slate-800 hover:text-emerald-700">
+        <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center flex-shrink-0">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+          </svg>
+        </div>
+        <span class="font-semibold">{site.abler.phone}</span>
+      </a>
+
+      <div class="flex items-center gap-2.5 text-xs text-slate-500 pt-2">
+        <div class="w-8 h-8 rounded-lg bg-slate-50 text-slate-400 flex items-center justify-center flex-shrink-0">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+        </div>
+        <span>{site.abler.location}</span>
+      </div>
     </div>
   </div>
-  <ol class="mt-4 space-y-2 text-sm text-[var(--edu-body)] list-none p-0 m-0">
-    <li><strong class="text-[var(--edu-brand)]">1.</strong> We review your school context.</li>
-    <li><strong class="text-[var(--edu-brand)]">2.</strong> We walk through Eduvia with your team.</li>
-    <li><strong class="text-[var(--edu-brand)]">3.</strong> We plan a realistic rollout.</li>
-  </ol>
+
+  <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200/80">
+    <div class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">What happens next</div>
+    <ol class="space-y-3 text-xs sm:text-sm text-slate-600 list-none p-0 m-0">
+      <li class="flex items-start gap-2.5">
+        <span class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">1</span>
+        <span>We review your school size, campus model, and priorities.</span>
+      </li>
+      <li class="flex items-start gap-2.5">
+        <span class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">2</span>
+        <span>We walk through Eduvia using sample data matching your institution.</span>
+      </li>
+      <li class="flex items-start gap-2.5">
+        <span class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">3</span>
+        <span>We map out data migration and staff onboarding.</span>
+      </li>
+    </ol>
+  </div>
 </aside>

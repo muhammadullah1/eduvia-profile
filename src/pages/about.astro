@@ -9,31 +9,76 @@ const meta = {
     'Eduvia is Abler Software Solutions’ school management platform for academics, fees, assessments, and family communication.',
   path: '/about',
 };
+
+const pillars = [
+  {
+    title: 'Engineered for Real School Chaos',
+    desc: 'Paper registers get lost, substitute teachers need emergency cover, and fee installments happen in irregular cash bursts. We designed Eduvia to thrive in real operating conditions, not idealized laboratory scenarios.',
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />`,
+  },
+  {
+    title: 'Ironclad Role Boundaries',
+    desc: 'Accountants shouldn’t guess who is absent, teachers shouldn’t see entire school fee collections, and parents should only see vetted notices. Role isolation is enforced on every API route.',
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />`,
+  },
+  {
+    title: 'Oldest-Month-First Finance',
+    desc: 'Unlike generic accounting SaaS that treats school fees like retail invoices, Eduvia models fee arrears, multi-month clearings, and daily counter receipt books natively.',
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />`,
+  },
+  {
+    title: 'Built & Backed by Abler',
+    desc: 'Eduvia is developed and maintained by Abler Software Solutions, an engineering team focused on building dependable, long-term software for educational institutions across Pakistan.',
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />`,
+  },
+];
 ---
 
-<BaseLayout meta={meta} breadcrumbs={[{ label: 'About' }]}>
+<BaseLayout meta={meta}>
   <PageBanner
-    kicker="About"
+    kicker="Our Mission"
     title="School software from a product engineering team"
     description="Eduvia is built by Abler for schools that need registers, fees, assessments, and parent communication in one system — with permissions that match how your staff actually work."
   />
+
   <section class="section">
-    <div class="wrap max-w-3xl space-y-10 text-[var(--edu-body)]" data-reveal>
-      <div>
-        <h2 class="text-xl font-extrabold text-[var(--edu-ink)]">What we optimise for</h2>
-        <p class="mt-3 leading-relaxed">
-          Clear role boundaries, review steps before content reaches parents, and fee workflows that match counter and leadership practice. The modules on this site are the modules in the live portal.
+    <div class="wrap" data-reveal>
+      <div class="max-w-3xl mb-14">
+        <h2 class="section-title text-2xl sm:text-3xl">Why we built Eduvia</h2>
+        <p class="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
+          Most school software falls into one of two traps: either it is an outdated desktop program that crashes whenever network drops, or a generic CRM reskinned with school terms that collapses the moment term fees or substitute teachers are needed.
+        </p>
+        <p class="mt-3 text-base sm:text-lg text-slate-600 leading-relaxed">
+          Eduvia was created to give school leaders, administrative staff, teachers, and families a modern, rock-solid platform where each person has exactly what they need — without unnecessary complexity or security hazards.
         </p>
       </div>
-      <div>
-        <h2 class="text-xl font-extrabold text-[var(--edu-ink)]">Who Eduvia serves</h2>
-        <p class="mt-3 leading-relaxed">
-          Super administrators, operations teams, accountants, teachers, and parents — each with a dedicated workspace instead of one overloaded dashboard.
-        </p>
+
+      <div class="grid gap-6 sm:grid-cols-2">
+        {pillars.map((item) => (
+          <div class="bento-card">
+            <div class="bento-card-icon">
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" set:html={item.icon} />
+            </div>
+            <h3 class="text-lg font-bold text-slate-900">{item.title}</h3>
+            <p class="mt-2 text-sm text-slate-600 leading-relaxed">{item.desc}</p>
+          </div>
+        ))}
       </div>
-      <p>
-        <a href="/contact" class="btn btn-primary">Request a demo</a>
-      </p>
+
+      <!-- Company note -->
+      <div class="mt-16 p-8 rounded-2xl bg-white border border-slate-200/80 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-emerald-700">Engineering & Deployment</span>
+          <h3 class="text-xl font-bold text-slate-900 mt-1">{site.abler.name}</h3>
+          <p class="text-sm text-slate-600 mt-1">Headquartered in {site.abler.location} · Dedicated rollout & continuous onboarding support.</p>
+        </div>
+        <a href="/contact" class="btn btn-primary flex-shrink-0">
+          <span>Talk to our team</span>
+          <svg class="w-4 h-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" />
+          </svg>
+        </a>
+      </div>
     </div>
   </section>
 </BaseLayout>

@@ -10,8 +10,11 @@ const { kicker, title, description } = Astro.props;
 
 <header class="page-banner">
   <div class="wrap page-banner-inner" data-reveal>
-    <p class="kicker">{kicker}</p>
-    <h1>{title}</h1>
+    <div class="page-banner-kicker-wrap">
+      <span class="page-banner-kicker-dot"></span>
+      <span class="page-banner-kicker">{kicker}</span>
+    </div>
+    <h1 class="page-banner-title">{title}</h1>
     {description && <p class="page-banner-desc">{description}</p>}
   </div>
 </header>
