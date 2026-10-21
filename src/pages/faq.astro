@@ -5,32 +5,59 @@ import { site } from '../data/site';
 import { faqs } from '../data/content';
 
 const meta = {
-  title: `FAQ | ${site.name}`,
+  title: `Frequently Asked Questions | ${site.name}`,
   description:
     'Answers about Eduvia roles, admissions, fees, assessments, parent access, and working with Abler.',
   path: '/faq',
 };
 ---
 
-<BaseLayout meta={meta} breadcrumbs={[{ label: 'FAQ' }]}>
+<BaseLayout meta={meta}>
   <PageBanner
-    kicker="FAQ"
+    kicker="Help & Clarifications"
     title="Questions schools ask us"
-    description="Answers grounded in how Eduvia works in the portal today."
+    description="Clear, straightforward answers grounded in how Eduvia works in the portal and on the API today."
   />
 
   <section class="section alt">
-    <div class="wrap max-w-3xl space-y-3">
-      {faqs.map((faq) => (
-        <details class="bento-card edu-faq" data-reveal>
-          <summary>{faq.q}</summary>
+    <div class="wrap max-w-3xl space-y-4">
+      {faqs.map((faq, idx) => (
+        <details class="edu-faq" data-reveal>
+          <summary>
+            <span class="flex items-center gap-3">
+              <span class="w-6 h-6 rounded-full bg-slate-100 text-slate-500 text-xs font-bold flex items-center justify-center flex-shrink-0">
+                {idx + 1}
+              </span>
+              <span>{faq.q}</span>
+            </span>
+          </summary>
           <p>{faq.a}</p>
         </details>
       ))}
     </div>
-    <p class="wrap mt-10 max-w-3xl text-center text-sm text-[var(--edu-muted)]">
-      <a href="/contact" class="font-semibold text-[var(--edu-brand)] hover:underline">Request a demo</a>
-      for school-specific questions.
-    </p>
+
+    <!-- Quick Help Card -->
+    <div class="wrap max-w-3xl mt-14 p-8 rounded-2xl bg-white border border-slate-200/80 shadow-sm text-center">
+      <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-emerald-50 text-emerald-600 mb-3">
+        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+        </svg>
+      </div>
+      <h3 class="text-xl font-bold text-slate-900">Have a question specific to your institution?</h3>
+      <p class="mt-2 text-sm text-slate-600 max-w-md mx-auto">
+        We regularly help schools transition from legacy software or paper systems. Ask us anything directly.
+      </p>
+      <div class="mt-6 flex flex-wrap justify-center gap-3">
+        <a href="/contact" class="btn btn-primary">
+          <span>Request a demo consultation</span>
+          <svg class="w-4 h-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" />
+          </svg>
+        </a>
+        <a href={`mailto:${site.abler.email}`} class="btn btn-ghost">
+          <span>Email our engineers</span>
+        </a>
+      </div>
+    </div>
   </section>
 </BaseLayout>

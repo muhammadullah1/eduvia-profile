@@ -7,10 +7,9 @@ import { site, pageUrl } from '../data/site';
 
 interface Props {
   meta: PageMeta;
-  breadcrumbs?: { label: string; href?: string }[];
 }
 
-const { meta, breadcrumbs = [] } = Astro.props;
+const { meta } = Astro.props;
 const origin = Astro.site?.href ?? 'https://www.eduvia.app';
 const canonical = pageUrl(meta.path, origin);
 const ogImage = meta.ogImage ?? '/og-image.svg';
@@ -92,25 +91,6 @@ const organizationSchema = {
   <body class="min-h-screen flex flex-col antialiased">
     <a class="skip-link" href="#main">Skip to content</a>
     <SiteHeader />
-    {breadcrumbs.length > 0 && (
-      <nav aria-label="Breadcrumb" class="breadcrumb">
-        <ol class="wrap">
-          <li>
-            <a href="/" class="hover:text-foreground">Home</a>
-          </li>
-          {breadcrumbs.map((crumb) => (
-            <li class="flex items-center gap-1">
-              <span aria-hidden="true">/</span>
-              {crumb.href ? (
-                <a href={crumb.href} class="hover:text-foreground">{crumb.label}</a>
-              ) : (
-                <span class="text-foreground font-medium" aria-current="page">{crumb.label}</span>
-              )}
-            </li>
-          ))}
-        </ol>
-      </nav>
-    )}
     <main id="main" class="flex-1">
       <slot />
     </main>

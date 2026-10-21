@@ -13,44 +13,141 @@ const {
 ---
 
 <div class="product-shell" aria-hidden="true">
+  <!-- Window Chrome -->
   <div class="product-shell-chrome">
-    <span class="product-shell-dot"></span>
-    <span class="product-shell-dot"></span>
-    <span class="product-shell-dot"></span>
-    <span class="product-shell-url">app.eduvia · {role.toLowerCase()}</span>
+    <div class="product-shell-controls">
+      <span class="product-shell-dot dot-close"></span>
+      <span class="product-shell-dot dot-min"></span>
+      <span class="product-shell-dot dot-expand"></span>
+    </div>
+    <div class="product-shell-url-bar">
+      <svg class="product-shell-lock" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+      </svg>
+      <span class="product-shell-url">app.eduvia.app/{role.toLowerCase()}</span>
+    </div>
+    <div class="product-shell-chrome-status">
+      <span class="product-shell-live-dot"></span>
+      <span class="product-shell-live-text">Live 2026–27</span>
+    </div>
   </div>
+
+  <!-- Body -->
   <div class="product-shell-body">
     <aside class="product-shell-sidebar">
       <div class="product-shell-brand">
-        <img class="edu-logo-mark" src="/eduvia-mark.svg" alt="" width="32" height="32" />
-        <span>Eduvia</span>
+        <img class="edu-logo-mark" src="/eduvia-mark.svg" alt="" width="26" height="26" />
+        <span class="product-shell-brand-text">Eduvia</span>
       </div>
-      <ul>
+      <div class="product-shell-nav-label">Menu</div>
+      <ul class="product-shell-menu">
         {items.map((label) => (
-          <li class:list={[{ 'is-active': label === section }]}>{label}</li>
+          <li class:list={['product-shell-menu-item', { 'is-active': label === section }]}>
+            <span class="product-shell-menu-bullet"></span>
+            <span>{label}</span>
+          </li>
         ))}
       </ul>
+      <div class="product-shell-sidebar-footer">
+        <div class="product-shell-role-pill">{role}</div>
+      </div>
     </aside>
+
     <div class="product-shell-main">
+      <!-- Top header bar -->
       <div class="product-shell-topbar">
         <div>
-          <p class="product-shell-session">Session 2026–2027</p>
-          <h3>{section}</h3>
+          <div class="product-shell-session-badge">
+            <span class="badge-dot"></span> Active Session: 2026–2027
+          </div>
+          <h3 class="product-shell-heading">{section} Management</h3>
         </div>
-        <div class="product-shell-avatar" />
+        <div class="product-shell-user">
+          <div class="product-shell-avatar">
+            <span>{role.slice(0, 2).toUpperCase()}</span>
+          </div>
+        </div>
       </div>
+
+      <!-- Quick Metrics -->
       <div class="product-shell-metrics">
-        <div class="metric"><span>Enrolled</span><strong>1,248</strong></div>
-        <div class="metric"><span>Fee collected</span><strong>82%</strong></div>
-        <div class="metric"><span>Attendance</span><strong>94%</strong></div>
+        <div class="metric-card">
+          <span class="metric-label">Enrolled</span>
+          <div class="metric-val-row">
+            <strong class="metric-val">1,248</strong>
+            <span class="metric-trend text-emerald-600">+4.2%</span>
+          </div>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">Fees Collected</span>
+          <div class="metric-val-row">
+            <strong class="metric-val">88.4%</strong>
+            <span class="metric-trend text-emerald-600">On pace</span>
+          </div>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">Today's Attendance</span>
+          <div class="metric-val-row">
+            <strong class="metric-val">96.2%</strong>
+            <span class="metric-trend text-slate-500">32 absent</span>
+          </div>
+        </div>
       </div>
-      <div class="product-shell-table">
-        <div class="row head"><span>Student</span><span>Class</span><span>Status</span></div>
-        <div class="row"><span>Amina Khan</span><span>Grade 8-A</span><span class="pill ok">Active</span></div>
-        <div class="row"><span>Hassan Ali</span><span>Grade 8-B</span><span class="pill ok">Active</span></div>
-        <div class="row"><span>Sara Ahmed</span><span>Grade 7-A</span><span class="pill warn">Fee due</span></div>
+
+      <!-- Table Preview -->
+      <div class="product-shell-table-wrap">
+        <div class="product-shell-table">
+          <div class="table-row head">
+            <span>Student & Roll</span>
+            <span>Class Section</span>
+            <span>Fee Status</span>
+          </div>
+          <div class="table-row">
+            <div class="student-cell">
+              <span class="student-avatar av-1">AK</span>
+              <div>
+                <span class="student-name">Amina Khan</span>
+                <span class="student-id">#ED-2041</span>
+              </div>
+            </div>
+            <span class="class-tag">Grade 8-A</span>
+            <span class="pill-badge pill-success">Paid</span>
+          </div>
+          <div class="table-row">
+            <div class="student-cell">
+              <span class="student-avatar av-2">HA</span>
+              <div>
+                <span class="student-name">Hassan Ali</span>
+                <span class="student-id">#ED-2042</span>
+              </div>
+            </div>
+            <span class="class-tag">Grade 8-B</span>
+            <span class="pill-badge pill-success">Paid</span>
+          </div>
+          <div class="table-row">
+            <div class="student-cell">
+              <span class="student-avatar av-3">SA</span>
+              <div>
+                <span class="student-name">Sara Ahmed</span>
+                <span class="student-id">#ED-2079</span>
+              </div>
+            </div>
+            <span class="class-tag">Grade 7-A</span>
+            <span class="pill-badge pill-warning">Fee Due</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  <p class="product-shell-caption">Product UI mock — sample data only</p>
+
+  <div class="product-shell-caption">
+    <div class="caption-left">
+      <svg class="w-3.5 h-3.5 text-emerald-600" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
+      </svg>
+      <span>Live role preview: <strong>{role}</strong></span>
+    </div>
+    <span class="caption-right">API Enforcement: Active</span>
+  </div>
 </div>

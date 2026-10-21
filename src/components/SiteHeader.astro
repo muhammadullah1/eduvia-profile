@@ -19,25 +19,145 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
     </a>
 
     <nav class="edu-nav" aria-label="Primary">
-      {navLinks.map((link) => (
-        <a href={link.href} aria-current={currentPath === link.href ? 'page' : undefined}>
-          {link.label}
-        </a>
-      ))}
+      {navLinks.map((link) => {
+        const isActive = currentPath === link.href;
+        return (
+          <a
+            href={link.href}
+            class:list={['edu-nav-link', { 'is-active': isActive }]}
+            aria-current={isActive ? 'page' : undefined}
+          >
+            {link.label}
+          </a>
+        );
+      })}
     </nav>
 
     <div class="edu-header-actions">
-      <a href="/contact" class="btn btn-primary">Request a demo</a>
+      <a href="/contact" class="btn btn-primary btn-sm">
+        <span>Request a demo</span>
+        <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" />
+        </svg>
+      </a>
     </div>
 
-    <details class="edu-mobile-nav">
-      <summary aria-label="Menu">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 18h16"/></svg>
-      </summary>
-      <div class="edu-mobile-panel">
-        {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
-        <a href="/contact" class="btn btn-primary btn-block">Request a demo</a>
-      </div>
-    </details>
+    <!-- Mobile menu toggle button -->
+    <button
+      type="button"
+      class="edu-mobile-toggle"
+      id="edu-mobile-toggle"
+      aria-expanded="false"
+      aria-controls="edu-mobile-menu"
+      aria-label="Toggle navigation menu"
+    >
+      <span class="hamburger-box">
+        <span class="hamburger-inner"></span>
+      </span>
+    </button>
+  </div>
+
+  <!-- Mobile navigation overlay & drawer -->
+  <div class="edu-mobile-overlay" id="edu-mobile-overlay" aria-hidden="true"></div>
+  <div class="edu-mobile-drawer" id="edu-mobile-menu" aria-hidden="true">
+    <div class="edu-mobile-drawer-header">
+      <a href="/" class="edu-logo" aria-label={`${site.name} home`}>
+        <img
+          class="edu-logo-image"
+          src="/eduvia-logo.svg"
+          alt={site.name}
+          width="140"
+          height="35"
+        />
+      </a>
+      <button
+        type="button"
+        class="edu-mobile-close"
+        id="edu-mobile-close"
+        aria-label="Close menu"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <nav class="edu-mobile-links" aria-label="Mobile Navigation">
+      {navLinks.map((link) => {
+        const isActive = currentPath === link.href;
+        return (
+          <a
+            href={link.href}
+            class:list={['edu-mobile-link', { 'is-active': isActive }]}
+            aria-current={isActive ? 'page' : undefined}
+          >
+            <span>{link.label}</span>
+            <svg class="edu-mobile-link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </a>
+        );
+      })}
+    </nav>
+
+    <div class="edu-mobile-footer">
+      <a href="/contact" class="btn btn-primary btn-block">
+        <span>Request a demo</span>
+        <svg class="w-4 h-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" />
+        </svg>
+      </a>
+      <p class="edu-mobile-contact-note">
+        Direct inquiry: <a href="mailto:hello@abler.dev" class="text-emerald-700 font-semibold">hello@abler.dev</a>
+      </p>
+    </div>
   </div>
 </header>
+
+<script is:inline>
+  (() => {
+    const toggle = document.getElementById('edu-mobile-toggle');
+    const closeBtn = document.getElementById('edu-mobile-close');
+    const drawer = document.getElementById('edu-mobile-menu');
+    const overlay = document.getElementById('edu-mobile-overlay');
+
+    if (!toggle || !drawer || !overlay) return;
+
+    let isOpen = false;
+
+    const setOpen = (open) => {
+      isOpen = open;
+      toggle.setAttribute('aria-expanded', String(open));
+      drawer.setAttribute('aria-hidden', String(!open));
+      overlay.setAttribute('aria-hidden', String(!open));
+      document.body.classList.toggle('edu-nav-locked', open);
+      drawer.classList.toggle('is-open', open);
+      overlay.classList.toggle('is-open', open);
+      toggle.classList.toggle('is-active', open);
+    };
+
+    toggle.addEventListener('click', () => setOpen(!isOpen));
+    if (closeBtn) closeBtn.addEventListener('click', () => setOpen(false));
+    overlay.addEventListener('click', () => setOpen(false));
+
+    // Close on navigation click inside drawer
+    drawer.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => setOpen(false));
+    });
+
+    // Close on Escape key
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isOpen) {
+        setOpen(false);
+      }
+    });
+
+    // Close on resize to desktop
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 1024 && isOpen) {
+        setOpen(false);
+      }
+    });
+  })();
+</script>

@@ -10,36 +10,64 @@ import { navLinks, site } from '../data/site';
           class="edu-logo-image"
           src="/eduvia-logo.svg"
           alt={site.name}
-          width="176"
-          height="44"
+          width="160"
+          height="40"
           decoding="async"
         />
       </a>
       <p>{site.description}</p>
       <p class="edu-footer-by">
-        A school management product by
-        <a href={site.abler.url} rel="noopener noreferrer">{site.abler.name}</a>
+        Engineered and deployed by
+        <a href={site.abler.url} target="_blank" rel="noopener noreferrer">{site.abler.name}</a>
       </p>
     </div>
+
     <div>
-      <p class="edu-footer-label">Product</p>
+      <p class="edu-footer-label">Platform Navigation</p>
       <ul class="edu-footer-links">
-        {navLinks.filter((l) => !['/contact', '/faq'].includes(l.href)).map((l) => (
-          <li><a href={l.href}>{l.label}</a></li>
+        {navLinks.map((l) => (
+          <li>
+            <a href={l.href}>{l.label}</a>
+          </li>
         ))}
       </ul>
     </div>
+
     <div>
-      <p class="edu-footer-label">Contact</p>
+      <p class="edu-footer-label">Contact & Inquiries</p>
       <ul class="edu-footer-links">
-        <li><a href="/contact">Request a demo</a></li>
-        <li><a href={`mailto:${site.abler.email}`}>{site.abler.email}</a></li>
-        <li><a href={site.abler.phoneHref}>{site.abler.phone}</a></li>
+        <li>
+          <a href="/contact" class="font-bold text-emerald-700">Request a live demo →</a>
+        </li>
+        <li>
+          <a href={`mailto:${site.abler.email}`} class="flex items-center gap-2">
+            <svg class="w-3.5 h-3.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            <span>{site.abler.email}</span>
+          </a>
+        </li>
+        <li>
+          <a href={site.abler.phoneHref} class="flex items-center gap-2">
+            <svg class="w-3.5 h-3.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+            <span>{site.abler.phone}</span>
+          </a>
+        </li>
       </ul>
     </div>
   </div>
+
   <div class="wrap edu-footer-bar">
-    <span>© {new Date().getFullYear()} {site.abler.name}</span>
-    <span>{site.abler.location}</span>
+    <div class="flex items-center gap-2">
+      <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+      <span class="text-xs text-slate-500">Eduvia Cloud · All Systems Operational</span>
+    </div>
+    <div class="flex flex-wrap items-center gap-4 text-xs text-slate-500">
+      <span>© {new Date().getFullYear()} {site.abler.name}</span>
+      <span>•</span>
+      <span>{site.abler.location}</span>
+    </div>
   </div>
 </footer>

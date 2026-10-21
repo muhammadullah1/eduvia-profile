@@ -9,83 +9,221 @@ const meta = {
   description: site.description,
   path: '/',
 };
+
+const roleIcons: Record<string, string> = {
+  super_admin: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />`,
+  operations_manager: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />`,
+  accountant: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />`,
+  teacher: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />`,
+  parent: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />`,
+};
+
+const pillarIcons = [
+  `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />`,
+  `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />`,
+  `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />`,
+];
+
+const trustIcons = [
+  `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />`,
+  `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />`,
+  `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />`,
+];
 ---
 
 <BaseLayout meta={meta}>
+  <!-- Hero Section -->
   <section class="landing-hero">
     <div class="wrap landing-hero-grid">
       <div data-reveal>
-        <p class="kicker">School management SaaS</p>
-        <h1>Run your school on <span>one platform</span> your staff already understands</h1>
-        <p class="landing-hero-lead">{site.description}</p>
-        <div class="landing-hero-cta">
-          <a href="/contact" class="btn btn-primary">Request a demo</a>
-          <a href="/roles" class="btn btn-ghost">See role portals</a>
+        <div class="kicker">
+          <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse"></span>
+          <span>Next-Generation School OS</span>
         </div>
+        <h1>
+          Run your school on <span class="text-gradient">one unified platform</span> your staff already understands
+        </h1>
+        <p class="landing-hero-lead">{site.description}</p>
+        
+        <div class="landing-hero-cta">
+          <a href="/contact" class="btn btn-primary">
+            <span>Request a live demo</span>
+            <svg class="w-4 h-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" />
+            </svg>
+          </a>
+          <a href="/roles" class="btn btn-ghost">
+            <span>Explore 5 role portals</span>
+          </a>
+        </div>
+
         <div class="landing-badges">
-          <span class="landing-badge">Admissions</span>
-          <span class="landing-badge">Fees</span>
-          <span class="landing-badge">Timetable</span>
-          <span class="landing-badge">Parent app</span>
+          <div class="landing-badge">
+            <svg class="w-4 h-4 landing-badge-icon" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+            </svg>
+            <span>Admissions & Register</span>
+          </div>
+          <div class="landing-badge">
+            <svg class="w-4 h-4 landing-badge-icon" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+            </svg>
+            <span>Smart Fee Allocation</span>
+          </div>
+          <div class="landing-badge">
+            <svg class="w-4 h-4 landing-badge-icon" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+            </svg>
+            <span>Conflict-Free Timetable</span>
+          </div>
+          <div class="landing-badge">
+            <svg class="w-4 h-4 landing-badge-icon" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+            </svg>
+            <span>Parent App</span>
+          </div>
         </div>
       </div>
+
       <div data-reveal>
         <ProductShell role="Operations" section="Students" />
       </div>
     </div>
   </section>
 
-  <section class="section alt">
-    <div class="wrap" data-reveal>
-      <p class="kicker">Portals</p>
-      <h2 class="section-title">Five roles. One source of truth.</h2>
-      <p class="section-lead">Each team sees only what they need — enforced in the API, not just hidden in the menu.</p>
-      <div class="bento mt-8">
-        {portalRoles.slice(0, 3).map((role) => (
-          <article class="bento-card">
-            <h3>{role.title}</h3>
-            <p>{role.summary}</p>
-          </article>
-        ))}
-        <article class="bento-card span-2">
-          <h3>Parents stay in the loop</h3>
-          <p>{portalRoles.find((r) => r.id === 'parent')?.summary}</p>
-          <a href="/roles">All role portals →</a>
-        </article>
+  <!-- Metrics / Stats Bar -->
+  <section class="border-y border-slate-200/80 bg-white py-6">
+    <div class="wrap grid grid-cols-2 gap-6 text-center md:grid-cols-4">
+      <div class="p-2">
+        <div class="text-2xl font-extrabold text-[var(--edu-ink)] md:text-3xl">5 Roles</div>
+        <div class="mt-1 text-xs font-semibold uppercase tracking-wider text-[var(--edu-muted)]">Dedicated Workspaces</div>
+      </div>
+      <div class="p-2">
+        <div class="text-2xl font-extrabold text-[var(--edu-brand)] md:text-3xl">100%</div>
+        <div class="mt-1 text-xs font-semibold uppercase tracking-wider text-[var(--edu-muted)]">API-Enforced Rules</div>
+      </div>
+      <div class="p-2">
+        <div class="text-2xl font-extrabold text-[var(--edu-ink)] md:text-3xl">Oldest-First</div>
+        <div class="mt-1 text-xs font-semibold uppercase tracking-wider text-[var(--edu-muted)]">Fee Allocations</div>
+      </div>
+      <div class="p-2">
+        <div class="text-2xl font-extrabold text-[var(--edu-brand)] md:text-3xl">Zero</div>
+        <div class="mt-1 text-xs font-semibold uppercase tracking-wider text-[var(--edu-muted)]">Messy Spreadsheets</div>
       </div>
     </div>
   </section>
 
+  <!-- Role Portals Bento Section -->
+  <section class="section alt">
+    <div class="wrap" data-reveal>
+      <div class="kicker">
+        <span>Role-Based Design</span>
+      </div>
+      <h2 class="section-title">Five purpose-built roles. One source of truth.</h2>
+      <p class="section-lead">Each team sees only what their job requires — strictly enforced on the server API, not just hidden buttons in the menu.</p>
+      
+      <div class="bento">
+        {portalRoles.map((role, idx) => {
+          return (
+            <article class:list={['bento-card', { 'span-2': idx === 3 }]}>
+              <div class="bento-card-icon">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" set:html={roleIcons[role.id]} />
+              </div>
+              <h3>{role.title}</h3>
+              <p>{role.summary}</p>
+              <ul class="mt-4 space-y-1.5 text-xs text-[var(--edu-body)] list-none p-0 m-0">
+                {role.highlights.slice(0, 2).map((item) => (
+                  <li class="flex items-center gap-1.5">
+                    <svg class="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                      <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                    </svg>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <a href="/roles" class="mt-4 inline-flex items-center gap-1 font-semibold text-xs text-emerald-700">
+                <span>View role breakdown</span>
+                <svg class="w-3.5 h-3.5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" />
+                </svg>
+              </a>
+            </article>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Eduvia Pillars -->
   <section class="section">
     <div class="wrap" data-reveal>
-      <p class="kicker">Why Eduvia</p>
-      <h2 class="section-title">Operations software, not a brochure</h2>
+      <div class="kicker">
+        <span>Why Schools Choose Eduvia</span>
+      </div>
+      <h2 class="section-title">Built for operational excellence, not generic IT</h2>
+      <p class="section-lead">Real school days are fast-paced and unpredictable. Eduvia is engineered around practical daily workflows.</p>
+
       <div class="bento">
-        {homePillars.map((p) => (
+        {homePillars.map((p, idx) => (
           <article class="bento-card">
+            <div class="bento-card-icon">
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" set:html={pillarIcons[idx]} />
+            </div>
             <h3>{p.title}</h3>
             <p>{p.body}</p>
-            <a href={p.href}>{p.cta} →</a>
+            <a href={p.href}>
+              <span>{p.cta}</span>
+              <svg class="w-4 h-4 ml-0.5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" />
+              </svg>
+            </a>
           </article>
         ))}
       </div>
     </div>
   </section>
 
+  <!-- Trust by Design -->
   <section class="section alt">
     <div class="wrap" data-reveal>
-      <h2 class="section-title">Trust by design</h2>
-      <ul class="mt-8 grid gap-6 md:grid-cols-3 list-none p-0 m-0">
-        {trustPoints.map((t) => (
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <div class="kicker">
+          <span>Enterprise Reliability</span>
+        </div>
+        <h2 class="section-title">Trust, privacy & governance by design</h2>
+        <p class="section-lead mx-auto">Confidential records and financial totals should never be exposed. Eduvia ensures ironclad boundaries.</p>
+      </div>
+
+      <ul class="grid gap-6 md:grid-cols-3 list-none p-0 m-0">
+        {trustPoints.map((t, idx) => (
           <li class="bento-card">
+            <div class="bento-card-icon">
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" set:html={trustIcons[idx]} />
+            </div>
             <h3>{t.title}</h3>
             <p>{t.body}</p>
           </li>
         ))}
       </ul>
-      <p class="mt-10 text-center">
-        <a href="/contact" class="btn btn-primary">Talk to our team</a>
-      </p>
+
+      <!-- CTA Card -->
+      <div class="mt-14 p-8 sm:p-12 rounded-2xl cta-banner text-center shadow-xl">
+        <h3 class="text-2xl sm:text-3xl font-extrabold !text-white" style="color: #ffffff !important;">Ready to upgrade your school's operating system?</h3>
+        <p class="mt-3 text-emerald-100 max-w-xl mx-auto text-sm sm:text-base" style="color: rgba(255, 255, 255, 0.92) !important;">
+          Get a personalized walkthrough with your academic calendar and fee structure in mind. No cookie-cutter sales slides.
+        </p>
+        <div class="mt-8 flex flex-wrap justify-center gap-4">
+          <a href="/contact" class="btn btn-primary" style="background: #ffffff; color: #064e3b; box-shadow: 0 4px 14px rgba(0,0,0,0.25);">
+            <span>Schedule your demo</span>
+            <svg class="w-4 h-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" />
+            </svg>
+          </a>
+          <a href="/platform" class="btn btn-ghost" style="background: rgba(255,255,255,0.12); color: #ffffff; border-color: rgba(255,255,255,0.25);">
+            <span>See platform workflow</span>
+          </a>
+        </div>
+      </div>
     </div>
   </section>
 </BaseLayout>

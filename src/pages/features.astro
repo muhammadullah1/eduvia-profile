@@ -5,7 +5,7 @@ import { site } from '../data/site';
 import { moduleGroups } from '../data/content';
 
 const meta = {
-  title: `Modules and features | ${site.name}`,
+  title: `Modules & Features | ${site.name}`,
   description:
     'Every Eduvia module maps to the live portal: sessions, admissions, timetable, fees, examinations, parent access, and more.',
   path: '/features',
@@ -13,39 +13,95 @@ const meta = {
 
 const slug = (title: string) =>
   title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+
+const groupCategoryIcons: Record<string, string> = {
+  'Academic foundation': `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />`,
+  'People and admissions': `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />`,
+  'Teaching and cover': `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />`,
+  'Assessment and results': `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />`,
+  'Fees and finance': `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />`,
+  'Communication and trust': `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />`,
+};
 ---
 
-<BaseLayout meta={meta} breadcrumbs={[{ label: 'Features' }]}>
+<BaseLayout meta={meta}>
   <PageBanner
-    kicker="Features"
+    kicker="Module Directory"
     title="Modules in the live portal"
-    description="This list reflects Eduvia navigation and API capabilities today — not a generic checklist."
+    description="Every module listed here directly reflects Eduvia's active navigation and server-side API permissions — not a generic marketing checklist."
   />
 
-  <section class="section">
-    <div class="wrap space-y-14">
-      {moduleGroups.map((group) => (
-        <div data-reveal>
-          <h2 class="section-title text-2xl">{group.title}</h2>
-          <p class="section-lead">{group.description}</p>
-          <ul class="mt-8 grid gap-4 sm:grid-cols-2 list-none p-0 m-0">
-            {group.modules.map((mod) => {
-              const id = slug(mod.name);
-              const feesAnchor = mod.name.includes('Fee') ? 'fees' : id;
-              return (
-                <li id={feesAnchor} class="bento-card">
-                  <h3>{mod.name}</h3>
-                  <p>{mod.detail}</p>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      ))}
+  <!-- Quick Category Jump Navigation -->
+  <section class="border-b border-slate-200 bg-white py-4 sticky top-[4.25rem] z-30 shadow-xs">
+    <div class="wrap flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+      <span class="text-xs font-bold uppercase tracking-wider text-slate-400 whitespace-nowrap mr-2">Jump to:</span>
+      {moduleGroups.map((group) => {
+        const id = slug(group.title);
+        return (
+          <a
+            href={`#${id}`}
+            class="px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap bg-slate-100 hover:bg-emerald-50 hover:text-emerald-700 text-slate-700 border border-slate-200/80 transition-colors"
+          >
+            {group.title}
+          </a>
+        );
+      })}
     </div>
-    <p class="wrap mt-12 text-center text-sm text-[var(--edu-muted)]">
-      Want a guided walkthrough?
-      <a href="/contact" class="font-semibold text-[var(--edu-brand)] hover:underline">Request a demo</a>
-    </p>
+  </section>
+
+  <section class="section">
+    <div class="wrap space-y-16 sm:space-y-20">
+      {moduleGroups.map((group) => {
+        const groupId = slug(group.title);
+        const iconSvg = groupCategoryIcons[group.title] || groupCategoryIcons['Academic foundation'];
+        return (
+          <div id={groupId} class="scroll-mt-32" data-reveal>
+            <div class="flex items-start gap-3.5 mb-2">
+              <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-200 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" set:html={iconSvg} />
+              </div>
+              <div>
+                <h2 class="section-title text-2xl sm:text-3xl">{group.title}</h2>
+                <p class="section-lead mt-1 text-sm sm:text-base">{group.description}</p>
+              </div>
+            </div>
+
+            <ul class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 list-none p-0 m-0">
+              {group.modules.map((mod) => {
+                const id = slug(mod.name);
+                const feesAnchor = mod.name.includes('Fee') ? 'fees' : id;
+                return (
+                  <li id={feesAnchor} class="bento-card hover:border-emerald-300">
+                    <div class="flex items-center justify-between mb-2">
+                      <h3 class="text-base sm:text-lg font-bold text-slate-900">{mod.name}</h3>
+                      <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200/60">
+                        Live Module
+                      </span>
+                    </div>
+                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">{mod.detail}</p>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        );
+      })}
+    </div>
+
+    <div class="wrap mt-16 p-8 rounded-2xl bg-slate-50 border border-slate-200 text-center">
+      <h3 class="text-xl font-bold text-slate-900">Need specific custom workflows for your school?</h3>
+      <p class="mt-2 text-sm text-slate-600 max-w-lg mx-auto">
+        Eduvia's architecture accommodates bespoke grading rules, multi-campus requirements, and custom fee installment plans.
+      </p>
+      <div class="mt-6 flex flex-wrap justify-center gap-3">
+        <a href="/contact" class="btn btn-primary">
+          <span>Request a consultation</span>
+          <svg class="w-4 h-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" />
+          </svg>
+        </a>
+        <a href="/roles" class="btn btn-ghost">Explore role workspaces</a>
+      </div>
+    </div>
   </section>
 </BaseLayout>
